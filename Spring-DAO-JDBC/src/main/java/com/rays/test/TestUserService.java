@@ -21,7 +21,10 @@ public class TestUserService {
 
 		// test.testadd();
 		// test.testdelete();
-		test.testupdate();
+		// test.testupdate();
+		// test.testFindByPk();
+		// test.testFindByLogin();
+		test.testAuthenticate();
 
 	}
 
@@ -50,6 +53,50 @@ public class TestUserService {
 		dto.setId(2);
 		service.update(dto);
 		System.out.println("data updated successfully");
+	}
+
+	public void testFindByPk() {
+		UserDTO dto = new UserDTO();
+		dto = service.findByPk(1);
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastname());
+			System.out.println(dto.getLoginId());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("RecordNotFound");
+		}
+	}
+
+	public void testFindByLogin() {
+		UserDTO dto = new UserDTO();
+		dto = service.findByLogin("rohit@gmail.com");
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastname());
+			System.out.println(dto.getLoginId());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("RecordNotFound");
+		}
+
+	}
+
+	private void testAuthenticate() {
+		UserDTO dto = new UserDTO();
+		dto = service.authenticate("rohit@gmail.com", "rohit@123");
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastname());
+			System.out.println(dto.getLoginId());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("Login id and password are not same ");
+		}
+
 	}
 
 }

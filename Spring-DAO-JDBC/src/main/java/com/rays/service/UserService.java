@@ -15,15 +15,27 @@ public class UserService {
 	public long add(UserDTO dto) {
 		Long pk = userDao.add(dto);
 		return pk;
-
 	}
 
 	public void delete(int id) {
-		userDao.delete(id);
+		userDao.findByPk(id);
 	}
 
 	public void update(UserDTO dto) {
 		userDao.update(dto);
+	}
+
+	public UserDTO findByPk(int id) {
+		return userDao.findByPk(id);
+	}
+
+	public UserDTO findByLogin(String login) {
+		return userDao.findByLogin(login);
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		return userDao.authenticate(login, password);
+
 	}
 
 }
