@@ -1,5 +1,7 @@
 package com.rays.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +86,31 @@ public class UserDAOImpl implements UserDAOInt {
 			return null;
 
 		}
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+		StringBuffer sql = new StringBuffer("select * from st_user where 1 = 1");
+		if (dto != null) {
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				sql.append(" and st_firstName like '" + dto.getFirstName() + "%'");
+			}
+			if (dto.getLastname() != null && dto.getLastname().length() > 0) {
+				sql.append(" and st_lastName like '" + dto.getLastname() + "%'");
+			}
+			if (dto.getLoginId() != null && dto.getLoginId().length() > 0) {
+				sql.append(" and st_loginId like '" + dto.getLoginId() + "%'");
+			}
+			if (dto.getPassword() != null && dto.getPassword().length() > 0) {
+				sql.append(" and st_password like '" + dto.getPassword() + "%'");
+			}
+
+		}
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+		List<UserDTO> list = jdbctemplet.query(sql.toString(), new UserMapper());
+		return list;
 	}
 
 }

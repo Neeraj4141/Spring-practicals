@@ -1,25 +1,26 @@
-package com.rays.dao;
+package com.rays.service;
 
 import java.util.List;
 
 import com.rays.dto.UserDTO;
 
-public interface UserDAOInt {
-
-	public long nextPk();
-
+public interface UserServiceInt {
+	
 	public long add(UserDTO dto);
-
-	public void delete(int id);
 
 	public void update(UserDTO dto);
 
-	public UserDTO findByPk(int id);
+	public List search(UserDTO dto);
+
+	public List search(UserDTO dto, int pageNo, int pageSize);
+
+	public UserDTO delete(long id);
 
 	public UserDTO findByLogin(String login);
 
+	public UserDTO findByPK(long pk);
+
 	public UserDTO authenticate(String login, String password);
 
-	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize);
 
 }
