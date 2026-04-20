@@ -32,15 +32,15 @@ public class UserServiceImpl implements UserServiceInt {
 		return null;
 	}
 
+	@Transactional(readOnly = true)
 	public List search(UserDTO dto, int pageNo, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.search(dto, pageNo, pageSize);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public UserDTO delete(long id) {
-		dao.delete(id);
-		return null;
+		return dao.delete(id);
+
 	}
 
 	@Transactional(readOnly = true)
@@ -54,9 +54,10 @@ public class UserServiceImpl implements UserServiceInt {
 		return dao.findByPK(pk);
 	}
 
+	@Transactional(readOnly = true)
 	public UserDTO authenticate(String login, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.auth(login, password);
+
 	}
 
 }

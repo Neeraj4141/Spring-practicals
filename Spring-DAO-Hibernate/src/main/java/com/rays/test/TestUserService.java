@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,7 +26,9 @@ public class TestUserService {
 		// test.testUpdate();
 		// test.testDelete();
 		// test.testFindByPk();
-		test.testFindByLogin();
+		// test.testFindByLogin();
+		// test.testSearch();
+		test.testAuthenticate();
 	}
 
 	public void testAdd() {
@@ -69,6 +74,34 @@ public class TestUserService {
 		System.out.println(dto.getLogin());
 		System.out.println(dto.getPassword());
 
+	}
+
+	public void testSearch() {
+
+		UserDTO dto = new UserDTO();
+		System.out.println("service->" + service);
+		List<UserDTO> list = service.search(dto, 1, 5);
+		System.out.println(list);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = (UserDTO) it.next();
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLogin());
+			System.out.println("\t" + dto.getPassword());
+		}
+	}
+
+	public void testAuthenticate() {
+		UserDTO dto = service.authenticate("rohit@gmail.com", "Rohit@123");
+		System.out.println(dto.getId());
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getPassword());
 	}
 
 }
